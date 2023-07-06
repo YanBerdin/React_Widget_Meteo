@@ -10,7 +10,6 @@
   height: 40vmin;
   pointer-events: none;
   width: 50vmin;
-  margin-bottom: 1rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -21,7 +20,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  // min-height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,10 +29,9 @@
   color: white;
   background-color: #f0f;
   width: 100vw;
-  height: 50%;
+  height: 50vh;
   // background-color: #282c34;
   // min-height: 30vh;
-  margin-bottom: 3rem;
 }
 
 .App-link {

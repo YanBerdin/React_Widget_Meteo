@@ -1,0 +1,45 @@
+.MeteoWidget {
+  max-width: 250px;
+  width: 200px;
+  margin: 7rem auto;
+  background-color: rgb(4, 0, 255);
+  border: 4px solid #e219d8;
+  padding: 1rem;
+  border-radius: 15px;
+  text-align: left;
+  color: #fff;
+
+  &-container {
+    display: flex;
+  }
+
+  &-infos {
+    width: 90%;
+    max-height: 110px;
+  }
+
+  &-temperature {
+    text-align: right;
+    margin: 0;
+    font-size: 2.5em;
+  }
+
+  &-city {
+    margin: 0;
+    font-size: 1.5em;
+  }
+
+  &-code {
+    margin: 0;
+  }
+
+  &-description {
+    font-size: 1rem;
+  }
+
+  img {
+    max-width: 100%;
+    max-width: 100%;
+    border-radius: 10%;
+  }
+}
