@@ -1,6 +1,6 @@
 .MeteoWidget {
   max-width: 250px;
-  width: 200px;
+  width: 180px;
   margin: 7rem auto;
   background-color: rgb(4, 0, 255);
   border: 4px solid #e219d8;
@@ -21,7 +21,7 @@
   &-temperature {
     text-align: right;
     margin: 0;
-    font-size: 2.5em;
+    font-size: 2em;
   }
 
   &-city {
