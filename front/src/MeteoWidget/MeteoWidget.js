@@ -21,12 +21,12 @@ function MeteoWidget({ city, code }) {
       .then((response) => {
         setTemperature(response.data.main.temp);
         setIconUrl(
-          `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+          `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
         );
         setDescription(response.data.weather[0].description);
         console.log(response.data);
-        console.log(response.data.main.temp);
-        console.log(response.data.weather[0].description);
+        // console.log(response.data.main.temp);
+        // console.log(response.data.weather[0].description);
       })
       .catch((err) => {
         alert("Erreur API openweather !");
