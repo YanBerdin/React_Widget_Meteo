@@ -23,7 +23,7 @@ function App() {
       </header>
       <MeteoWidget city="Marcilly" code={21200}></MeteoWidget>
       <MeteoWidget city="Dijon" code={21000}></MeteoWidget>
-      <MeteoWidget city="Toulon" code={83000}></MeteoWidget>
+      <MeteoWidget city="Paris" code={75005}></MeteoWidget>
 
     </div>
   );

@@ -16,7 +16,7 @@ function MeteoWidget({ city, code }) {
     //sans avoir à importer "process"
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?zip=${code},fr&appid=${process.env.REACT_APP_API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?zip=${code},fr&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
       )
       .then((response) => {
         setTemperature(response.data.main.temp);
@@ -25,7 +25,8 @@ function MeteoWidget({ city, code }) {
         );
         setDescription(response.data.weather[0].description);
         console.log(response.data);
-        //console.log(response.data.main.temp);
+        console.log(response.data.main.temp);
+        console.log(response.data.weather[0].description);
       })
       .catch((err) => {
         alert("Erreur API openweather !");
