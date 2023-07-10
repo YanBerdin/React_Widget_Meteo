@@ -1,7 +1,7 @@
 .MeteoWidget {
-  width: 210px;
-  max-width: 230px;
-  height: 200px;
+  width: 220px;
+  // max-width: 230px;
+  height: 240px;
   max-height: 280;
   margin: 2rem auto;
   background-color: rgb(4, 0, 255);
@@ -10,11 +10,12 @@
   border-radius: 15px;
   text-align: left;
   color: #fff;
-  padding: 1rem;
 
   &-container {
     display: flex;
-    box-sizing: border-box;
+    width: 220px;
+    height: 250px;
+    // box-sizing: border-box;
   }
 
   &-infos {
@@ -26,6 +27,7 @@
     text-align: right;
     margin: 0;
     font-size: 2em;
+    padding-bottom: 1rem;
   }
 
   &-city {
@@ -48,7 +50,6 @@
     max-width: 100%;
     max-width: 100%;
     border-radius: 10%;
-    flex-grow: 2;
   }
 }
 
