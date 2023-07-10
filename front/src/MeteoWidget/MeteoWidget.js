@@ -47,7 +47,7 @@ function MeteoWidget({ city, code }) {
         <h3 className="MeteoWidget-temperature">
           <img alt="Icône de la météo actuelle" src={iconUrl}></img>
           {/* 28° */}
-          <h4 className="MeteoWidget-description">{description}</h4> {temperature}
+          <p className="MeteoWidget-description">{description}</p> {temperature}
         </h3>
       </div>
     </div>
