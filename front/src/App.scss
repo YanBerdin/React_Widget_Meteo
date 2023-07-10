@@ -58,7 +58,11 @@
   align-items: center;
   gap: 2rem;
   // box-sizing: border-box;
-  margin: 2rem;
+  margin: 1rem;
   min-height: 510px;
   min-width: 330px;
+}
+
+h1 {
+  margin-bottom: 0;
 }
