@@ -1,20 +1,24 @@
 .MeteoWidget {
-  max-width: 250px;
-  width: 180px;
-  margin: 7rem auto;
+  width: 210px;
+  max-width: 230px;
+  height: 200px;
+  max-height: 280;
+  margin: 2rem auto;
   background-color: rgb(4, 0, 255);
-  border: 4px solid #e219d8;
+  border: 4px solid #fa05ee;
   padding: 1rem;
   border-radius: 15px;
   text-align: left;
   color: #fff;
+  padding: 1rem;
 
   &-container {
     display: flex;
+    box-sizing: border-box;
   }
 
   &-infos {
-    width: 90%;
+    width: 110px;
     max-height: 110px;
   }
 
@@ -27,10 +31,13 @@
   &-city {
     margin: 0;
     font-size: 1.5em;
+    overflow: hidden;
+    // white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &-code {
-    margin: 0;
+    margin: 1rem 0;
   }
 
   &-description {
@@ -41,5 +48,12 @@
     max-width: 100%;
     max-width: 100%;
     border-radius: 10%;
+    flex-grow: 2;
   }
 }
+
+// @media screen and (min-width: 1041px) and (max-width: 1542px) {
+//   .MeteoWidget {
+//     margin: 2rem;
+//   }
+// }

@@ -4,6 +4,8 @@
   display: flex;
   flex-wrap: wrap;
   width: 100vw;
+  min-width: 330px;
+  height: auto;
 }
 
 .App-logo {
@@ -12,6 +14,17 @@
   width: 50vmin;
 }
 
+.MeteoWidget-section {
+  width: 100vw;
+  min-height: 39vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
+  box-sizing: border-box;
+  margin: 2rem;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -20,18 +33,17 @@
 
 .App-header {
   background-color: #282c34;
-  // min-height: 30vh;
+  min-width: 330px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  background-color: #f0f;
+  background-color: rgb(4, 0, 255);
   width: 100vw;
-  height: 50vh;
+  height: 50%;
   // background-color: #282c34;
-  margin-bottom: 3rem;
 }
 
 .App-link {

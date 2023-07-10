@@ -19,9 +19,14 @@ function App() {
           Learn React
         </a> */}
       </header>
-      <MeteoWidget city="Marcilly sur Tille" code={21200}></MeteoWidget>
-      <MeteoWidget city="Dijon" code={21000}></MeteoWidget>
-      <MeteoWidget city="Paris" code={75005}></MeteoWidget>
+      <section className="MeteoWidget-section">
+        <MeteoWidget
+          city="Marcilly sur Tille"
+          code={21200}
+        ></MeteoWidget>
+        <MeteoWidget city="Dijon" code={21000}></MeteoWidget>
+        <MeteoWidget city="Paris" code={75005}></MeteoWidget>
+      </section>
     </div>
   );
 }
