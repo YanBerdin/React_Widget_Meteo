@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.scss";
 import MeteoWidget from "./MeteoWidget/MeteoWidget";
+import MeteoWidget2 from "./MeteoWidget/MeteoWidget2";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
           city="Marcilly sur Tille"
           code={21200}
         ></MeteoWidget>
-        <MeteoWidget city="Dijon" code={21000}></MeteoWidget>
+        <MeteoWidget2 />
         <MeteoWidget city="Paris" code={75005}></MeteoWidget>
       </section>
     </div>

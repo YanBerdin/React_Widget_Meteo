@@ -1,7 +1,7 @@
 import { PropTypes } from "prop-types";
 import "./MeteoWidget.scss";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 function MeteoWidget({ city, code }) {
   const [temperature, setTemperature] = useState(null);
@@ -9,11 +9,10 @@ function MeteoWidget({ city, code }) {
   const [description, setDescription] = useState(null);
 
   // Au 1er rendu, récupérer les data météo depuis l'API
-  // essai avec Clé API d'Alexandre
-  useEffect(() => {
-    //"process" est automatiquement injecté dans notre code lors du build
-    //il nous permet donc de récupérer des valeurs depuis le fichier .env
-    //sans avoir à importer "process"
+  const fetchMeteo = useCallback(() => {
+    // "process" est automatiquement injecté dans notre code lors du build
+    // il permet de récupérer des valeurs depuis le fichier .env
+    // sans avoir à importer "process"
     axios
       .get(
         `https://api.openweathermap.org/data/2.5/weather?zip=${code},fr&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
@@ -35,8 +34,14 @@ function MeteoWidget({ city, code }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Utiliser useEffect pour appeler la fonction fetchMeteo au montage et lorsque la ville change
+  useEffect(() => {
+    fetchMeteo();
+  }, [fetchMeteo]); // Dépend uniquement de la fonction fetchMeteo
+
   return (
     <div className="MeteoWidget">
+      
       <div className="MeteoWidget-container">
         <div className="MeteoWidget-infos">
           <h2 className="MeteoWidget-city">{city}</h2>
@@ -47,7 +52,7 @@ function MeteoWidget({ city, code }) {
         <h3 className="MeteoWidget-temperature">
           <img alt="Icône de la météo actuelle" src={iconUrl}></img>
           {/* 28° */}
-          <p className="MeteoWidget-description">{description}</p> {temperature}
+          <p className="MeteoWidget-description">{description}</p> <p>{Math.round(temperature)}°C</p>
         </h3>
       </div>
     </div>
