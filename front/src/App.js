@@ -1,6 +1,8 @@
 import logo from "./logo.svg";
 import "./App.scss";
 import MeteoWidget from "./MeteoWidget/MeteoWidget";
+import MeteoWidget2 from "./MeteoWidget/MeteoWidget2";
+import MeteoWidget3 from "./MeteoWidget/MeteoWidget3";
 
 function App() {
   return (
@@ -20,12 +22,10 @@ function App() {
         </a> */}
       </header>
       <section className="MeteoWidget-section">
-        <MeteoWidget
-          city="Marcilly sur Tille"
-          code={21200}
-        ></MeteoWidget>
-        <MeteoWidget city="Dijon" code={21000}></MeteoWidget>
-        <MeteoWidget city="Paris" code={75005}></MeteoWidget>
+        <MeteoWidget cityName="Marcilly sur Tille" code={21200}></MeteoWidget>
+        <MeteoWidget2 cityName="Paris" code={75005}></MeteoWidget2>
+        {/*<MeteoWidget2 />*/}
+        <MeteoWidget3 cityName="Paris" code={75011}/>
       </section>
     </div>
   );
