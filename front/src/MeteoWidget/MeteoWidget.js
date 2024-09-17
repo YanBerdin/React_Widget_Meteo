@@ -3,7 +3,7 @@ import "./MeteoWidget.scss";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 
-function MeteoWidget({ city, code }) {
+function MeteoWidget({ cityName, code }) {
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState(null);
   const [description, setDescription] = useState(null);
@@ -41,10 +41,9 @@ function MeteoWidget({ city, code }) {
 
   return (
     <div className="MeteoWidget">
-      
       <div className="MeteoWidget-container">
         <div className="MeteoWidget-infos">
-          <h2 className="MeteoWidget-city">{city}</h2>
+          <h2 className="MeteoWidget-city">{cityName}</h2>
 
           <h3 className="MeteoWidget-code">{code}</h3>
         </div>
@@ -52,7 +51,8 @@ function MeteoWidget({ city, code }) {
         <h3 className="MeteoWidget-temperature">
           <img alt="Icône de la météo actuelle" src={iconUrl}></img>
           {/* 28° */}
-          <p className="MeteoWidget-description">{description}</p> <p>{Math.round(temperature)}°C</p>
+          <p className="MeteoWidget-description">{description}</p>{" "}
+          <p>{Math.round(temperature)}°C</p>
         </h3>
       </div>
     </div>
@@ -60,7 +60,7 @@ function MeteoWidget({ city, code }) {
 }
 
 MeteoWidget.propTypes = {
-  city: PropTypes.string.isRequired,
+  cityName: PropTypes.string.isRequired,
   code: PropTypes.number.isRequired,
 };
 

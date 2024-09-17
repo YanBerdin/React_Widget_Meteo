@@ -1,14 +1,14 @@
-// import { PropTypes } from "prop-types";
+import { PropTypes } from "prop-types";
 import "./MeteoWidget.scss";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 
-function MeteoWidget() {
+function MeteoWidget2() {
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState(null);
   const [description, setDescription] = useState(null);
-  const [code, setCode] = useState("21000");
-  const [cityName, setCityName] = useState(null); // Ajouter un état local pour le nom de la ville
+  const [code, setCode] = useState("75005");
+  const [cityName, setCityName] = useState("Paris 05");
 
   // Gérer la soumission du formulaire
   const handleSubmit = (event) => {
@@ -20,7 +20,7 @@ function MeteoWidget() {
 
   // Au 1er rendu, récupérer les data météo depuis l'API
   const fetchMeteo = useCallback((code) => {
-    //? "process" est automatiquement injecté dans le code lors du build
+    //* "process" est automatiquement injecté dans le code lors du build
     //? il permet de récupérer des valeurs depuis le fichier .env
     //? sans avoir à importer "process"
 
@@ -31,7 +31,7 @@ function MeteoWidget() {
           `https://api.openweathermap.org/data/2.5/weather?zip=${code},fr&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
         )
         .then((response) => {
-          console.log(response.data.name);
+          // console.log(response.data.name);
           // Vérifier si la réponse contient au moins une commune
           // if (response.data.length > 0) {
           //   // Prendre le nom de la première commune
@@ -60,12 +60,13 @@ function MeteoWidget() {
   // Gérer le changement de code
   const handleChange = (event) => {
     setCode(event.target.value);
+    fetchMeteo(code);
   };
 
   // Utiliser useEffect pour appeler la fonction fetchMeteo au montage et lorsque la ville change
   useEffect(() => {
-    fetchMeteo();
-  }, [fetchMeteo]); // Dépend uniquement de la fonction fetchMeteo
+    fetchMeteo(code);
+  }, [code, fetchMeteo]); // Dépend de la fonction fetchMeteo et du code postal
 
   return (
     <div className="MeteoWidget">
@@ -81,7 +82,7 @@ function MeteoWidget() {
           <img alt="Icône de la météo actuelle" src={iconUrl}></img>
           {/* 28° */}
           <p className="MeteoWidget-description">{description}</p>
-          <p>{temperature}°C</p>
+          <p>{Math.round(temperature)}°C</p>
         </h3>
       </div>
       <form className="MeteoWidget-form" onSubmit={handleSubmit}>
@@ -91,9 +92,9 @@ function MeteoWidget() {
   );
 }
 
-// MeteoWidget.propTypes = {
-//   cityName: PropTypes.string.isRequired,
-//   code: PropTypes.number.isRequired,
-// };
+MeteoWidget2.propTypes = {
+  cityName: PropTypes.string.isRequired,
+  code: PropTypes.number.isRequired,
+};
 
-export default MeteoWidget;
+export default MeteoWidget2;
