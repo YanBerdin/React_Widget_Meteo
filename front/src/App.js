@@ -22,7 +22,7 @@ function App() {
         </a> */}
       </header>
       <section className="MeteoWidget-section">
-        <MeteoWidget cityName="Marcilly sur Tille" code={21200}></MeteoWidget>
+        <MeteoWidget cityName="Chamonix-Mont-Blanc" code={74400}></MeteoWidget>
         <MeteoWidget2 cityName="Paris" code={75005}></MeteoWidget2>
         {/*<MeteoWidget2 />*/}
         <MeteoWidget3 cityName="Paris" code={75011}/>

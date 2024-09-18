@@ -42,16 +42,17 @@ function MeteoWidget3() {
       <div className="MeteoWidget-container">
         <div className="MeteoWidget-infos">
           <h2 className="MeteoWidget-city">{cityName}</h2>
-
           {/*<h3 className="MeteoWidget-code">{code}</h3>*/}
+          <h3>{""}</h3>
         </div>
 
-        <h3 className="MeteoWidget-temperature">
+        <div className="MeteoWidget-temperature">
           <img alt="Icône de la météo actuelle" src={iconUrl}></img>
-          {/* 28° */}
-          <p className="MeteoWidget-description">{description}</p>{" "}
-          <p>{Math.round(temperature)}°C</p>
-        </h3>
+          <div className="MeteoWidget-description">
+            <p>{description}</p>
+            <p>{Math.round(temperature)}°C</p>
+          </div>
+        </div>
       </div>
     </div>
   );

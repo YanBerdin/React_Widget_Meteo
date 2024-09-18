@@ -72,21 +72,24 @@ function MeteoWidget2() {
     <div className="MeteoWidget">
       <div className="MeteoWidget-container">
         <div className="MeteoWidget-infos">
-          <h2 className="MeteoWidget-city"> {cityName} </h2>
-
+          <h2 className="MeteoWidget-city">{cityName}</h2>
           <h3 className="MeteoWidget-code">{code}</h3>
-          {/* Ajouter un élément form avec l'attribut onSubmit */}
         </div>
-
-        <h3 className="MeteoWidget-temperature">
-          <img alt="Icône de la météo actuelle" src={iconUrl}></img>
-          {/* 28° */}
-          <p className="MeteoWidget-description">{description}</p>
-          <p>{Math.round(temperature)}°C</p>
-        </h3>
+        <div className="MeteoWidget-temperature">
+          <img alt="Icône de la météo actuelle" src={iconUrl} />
+          <div className="MeteoWidget-description">
+            <p>{description}</p>
+            <p>{Math.round(temperature)}°C</p>
+          </div>
+        </div>
       </div>
       <form className="MeteoWidget-form" onSubmit={handleSubmit}>
-        <input type="text" value={code} onChange={handleChange} />
+        <input
+          className="MeteoWidget-input"
+          type="text"
+          value={code}
+          onChange={handleChange}
+        />
       </form>
     </div>
   );
