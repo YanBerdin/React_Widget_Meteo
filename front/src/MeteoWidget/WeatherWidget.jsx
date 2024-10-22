@@ -1,116 +1,82 @@
-"use client";
-
 import { useState, useEffect } from "react";
-//import { Cloud, Droplets, Sun, Thermometer, MapPin, Loader2 } from "lucide-react"
-import { Cloud, Droplets, Thermometer, MapPin } from "lucide-react"; //  Sun,
-
+import { Cloud, Droplets, Thermometer, MapPin } from "lucide-react";
 import axios from "axios";
+import PropTypes from "prop-types";
 
-/*interface LocationData {
-    city: string;
-    state: string;
-    country: string;
-}
-*/
-export default function WeatherWidget() {
-  // const [location, setLocation] = useState<LocationData | null>(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-
+const WeatherWidget = () => {
+  const [loading, setLoading] = useState(true);
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState("");
   const [description, setDescription] = useState(null);
   const [cityName, setCityName] = useState(null);
+  const [humidity, setHumidity] = useState(null);
+  const [clouds, setClouds] = useState(null);
+  const [tempMax, setTempMax] = useState(null);
+  const [tempMin, setTempMin] = useState(null);
 
-  /*
-        useEffect(() => {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(
-                    position => {
-                        const { latitude, longitude } = position.coords;
-                        fetchLocationName(latitude, longitude);
-                    },
-                    err => {
-                        setError("Unable to retrieve your location");
-                        setLoading(false);
-                    }
-                );
-            } else {
-                setError("Geolocation is not supported by your browser");
-                setLoading(false);
-            }
-        }, []);
-    */
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { longitude, latitude } = position.coords;
 
-      console.log("lat et long", latitude, longitude); //TODO: remove
-      console.log("Latitude:", position.coords.latitude); //TODO: remove
-      //console.log("Longitude:", position.coords.longitude); //TODO: remove
+      // console.log("lat et long", latitude, longitude); //TODO: remove
+      // console.log("Latitude:", position.coords.latitude); //TODO: remove
       axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
         )
 
         .then((response) => {
-          console.log("response", response); //TODO: remove
-          console.log("response.data.coord", response.data.coord);
-          console.log("response.data", response.data); //TODO: remove
-          console.log("position.coords", position.coords); //TODO: remove
+          // console.log("response", response); //TODO: remove
+          // console.log("response.data.coord", response.data.coord);
+          // console.log("weather widget response.data", response.data); //TODO: remove
+          // console.log("position.coords", position.coords); //TODO: remove
           setCityName(response.data.name);
           setTemperature(response.data.main.temp);
           setIconUrl(
             `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
           );
           setDescription(response.data.weather[0].description);
+          setHumidity(response.data.main.humidity);
+          setClouds(response.data.clouds.all);
+          setTempMax(response.data.main.temp_max);
+          setTempMin(response.data.main.temp_min);
         })
         .catch((err) => {
-          console.log("err", err); //TODO: remove
+          // console.log("err", err); //TODO: remove
           alert("Erreur API openweather !");
+        })
+        .finally(() => {
+          setLoading(false);
         });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  /*
-        const fetchLocationName = async (latitude: number, longitude: number) => {
-            try {
-                const response = await fetch(
-                    // `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
-                    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=adffa73c6a07ba1fa45b9e861a33e942&units=metric&lang=fr`
-                );
-                const data = await response.json();
-    
-                console.log(data);
-                setLocation({
-                    city: data.address.city || data.address.town || data.address.village || 'Unknown',
-                    state: data.address.state || '',
-                    country: data.address.country || ''
-                });
-            } catch (err) {
-                setError("Error fetching location data");
-            } finally {
-                setLoading(false);
-            }
-        };
-    */
-  /*
-        if (loading) {
-            return (
-                <div className="bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-xl shadow-lg max-w-sm w-full text-white flex items-center justify-center h-64">
-                    <Loader2 className="w-8 h-8 animate-spin" />
-                </div>
-            );
-        }
-    
-        if (error) {
-            return (
-                <div className="bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-xl shadow-lg max-w-sm w-full text-white">
-                    <p className="text-center">{error}</p>
-                </div>
-            );
-        }
-    */
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          background: "linear-gradient(to bottom right, #63b3ed, #3182ce)",
+          padding: "1.5rem",
+          borderRadius: "1rem",
+          boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
+          maxWidth: "24rem",
+          width: "100%",
+          color: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "16rem",
+        }}
+      >
+        <div className="loader">
+          {" "}
+          <p style={{ textAlign: "center" }}>Géolocalisation en attente</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     //<div className="bg-gradient-to-br from-blue-400 to-blue-600 p-6 rounded-xl shadow-lg max-w-sm w-full text-white mx-auto my-8">
     <div
@@ -150,7 +116,7 @@ export default function WeatherWidget() {
                 width: "3rem",
                 height: "3rem",
                 marginRight: "0.5rem",
-                marginBottom: "1rem"
+                marginBottom: "1rem",
               }}
             />
             {cityName}
@@ -173,16 +139,6 @@ export default function WeatherWidget() {
           >
             {Math.round(temperature)}°C
           </p>
-          {/*<Sun className="w-10 h-10 text-yellow-300" />*/}
-          {/*<Sun
-            style={{
-              width: "5rem",
-              height: "5rem",
-              color: "#f6e05e",
-              marginTop: "0.5rem",
-            }}
-          />
-          */}
           <img alt="Icône de la météo actuelle" src={iconUrl} />
         </div>
 
@@ -209,7 +165,7 @@ export default function WeatherWidget() {
               marginRight: "0.25rem",
             }}
           />
-          <span>High: 75°F</span>
+          <span>Temp-Max : {Math.round(tempMax)}°C</span>
         </div>
         {/*<div className="flex items-center">*/}
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -221,7 +177,7 @@ export default function WeatherWidget() {
               marginRight: "0.25rem",
             }}
           />
-          <span>Low: 65°F</span>
+          <span>Temp-Min : {Math.round(tempMin)}°C</span>
         </div>
       </div>
       {/*<div className="flex justify-between items-center mt-4">*/}
@@ -243,7 +199,7 @@ export default function WeatherWidget() {
               marginRight: "0.25rem",
             }}
           />
-          <span>Humidity: 60%</span>
+          <span>Humidité : {humidity}%</span>
         </div>
         {/*<div className="flex items-center">*/}
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -255,9 +211,16 @@ export default function WeatherWidget() {
               marginRight: "0.25rem",
             }}
           />
-          <span>Clouds: 10%</span>
+          <span>Nuages : {clouds}%</span>
         </div>
       </div>
     </div>
   );
-}
+};
+
+WeatherWidget.propTypes = {
+  cityName: PropTypes.string.isRequired,
+  code: PropTypes.number.isRequired,
+};
+
+export default WeatherWidget;

@@ -1,8 +1,8 @@
 import logo from "./logo.svg";
 import "./App.scss";
-import MeteoWidget from "./MeteoWidget/MeteoWidget";
+// import MeteoWidget from "./MeteoWidget/MeteoWidget";
 import MeteoWidget2 from "./MeteoWidget/MeteoWidget2";
-import MeteoWidget3 from "./MeteoWidget/MeteoWidget3";
+// import MeteoWidget3 from "./MeteoWidget/MeteoWidget3";
 import WeatherWidget from "./MeteoWidget/WeatherWidget";
 
 function App() {
@@ -23,11 +23,11 @@ function App() {
         </a> */}
       </header>
       <section className="MeteoWidget-section">
-        <WeatherWidget />
-        <MeteoWidget cityName="Chamonix-Mont-Blanc" code={74400}></MeteoWidget>
+        <WeatherWidget cityName="Tahiti" code={98700}/>
+        {/*<MeteoWidget cityName="Chamonix-Mont-Blanc" code={74400}></MeteoWidget>*/}
         <MeteoWidget2 cityName="Paris" code={75005}></MeteoWidget2>
         {/*<MeteoWidget2 />*/}
-        <MeteoWidget3 cityName="Paris" code={75011} />
+        {/*<MeteoWidget3 cityName="Paris" code={75011} />*/}
       </section>
     </div>
   );

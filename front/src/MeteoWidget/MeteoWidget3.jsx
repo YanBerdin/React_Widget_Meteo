@@ -3,7 +3,7 @@ import axios from "axios";
 import "./MeteoWidget.scss";
 import { PropTypes } from "prop-types";
 
-function MeteoWidget3() {
+const MeteoWidget3 = () => {
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState(null);
   const [description, setDescription] = useState(null);
@@ -13,17 +13,17 @@ function MeteoWidget3() {
     navigator.geolocation.getCurrentPosition(function (position) {
       const { longitude, latitude } = position.coords;
 
-      console.log("lat et long", latitude, longitude); //TODO: remove
-      console.log("Latitude:", position.coords.latitude); //TODO: remove
-      //console.log("Longitude:", position.coords.longitude); //TODO: remove
+      // console.log("lat et long", latitude, longitude); //TODO: remove
+      // console.log("Latitude:", position.coords.latitude); //TODO: remove
+
       axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
         )
         .then((response) => {
-          console.log("response.data.coord", response.data.coord);
-          console.log("response.data", response.data); //TODO: remove
-          console.log("position.coords", position.coords); //TODO: remove
+          // console.log("response.data.coord", response.data.coord);
+          // console.log("response.data", response.data); //TODO: remove
+          // console.log("position.coords", position.coords); //TODO: remove
           setCityName(response.data.name);
           setTemperature(response.data.main.temp);
           setIconUrl(

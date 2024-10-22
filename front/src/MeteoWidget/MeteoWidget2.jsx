@@ -3,28 +3,20 @@ import "./MeteoWidget.scss";
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 
-function MeteoWidget2() {
+const MeteoWidget2 = () => {
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState(null);
   const [description, setDescription] = useState(null);
   const [code, setCode] = useState("75005");
   const [cityName, setCityName] = useState("Paris 05");
 
-  // Gérer la soumission du formulaire
   const handleSubmit = (event) => {
-    // Empêcher le comportement par défaut du formulaire
     event.preventDefault();
-    // Appeler la fonction fetchMeteo avec le code saisi
     fetchMeteo(code);
   };
 
-  // Au 1er rendu, récupérer les data météo depuis l'API
   const fetchMeteo = useCallback((code) => {
-    //* "process" est automatiquement injecté dans le code lors du build
-    //? il permet de récupérer des valeurs depuis le fichier .env
-    //? sans avoir à importer "process"
-
-    // Ajouter une condition pour vérifier si le code est un nombre à 5 chiffres
+    // Vérifier si le code est un nombre à 5 chiffres
     if (/^\d{5}$/.test(code)) {
       axios
         .get(
@@ -45,7 +37,7 @@ function MeteoWidget2() {
             `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
           );
           setDescription(response.data.weather[0].description);
-          console.log(response.data);
+          // console.log(response.data);
           // console.log(response.data.main.temp);
           // console.log(response.data.weather[0].description);
         })
@@ -53,20 +45,17 @@ function MeteoWidget2() {
           alert("Erreur API openweather !");
         });
     }
-    // permet le tableau de dependence vide au 1er chargement de useEffect
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Gérer le changement de code
   const handleChange = (event) => {
     setCode(event.target.value);
     fetchMeteo(code);
   };
 
-  // Utiliser useEffect pour appeler la fonction fetchMeteo au montage et lorsque la ville change
   useEffect(() => {
     fetchMeteo(code);
-  }, [code, fetchMeteo]); // Dépend de la fonction fetchMeteo et du code postal
+  }, [code, fetchMeteo]);
 
   return (
     <div className="MeteoWidget">
@@ -93,7 +82,7 @@ function MeteoWidget2() {
       </form>
     </div>
   );
-}
+};
 
 MeteoWidget2.propTypes = {
   cityName: PropTypes.string.isRequired,
