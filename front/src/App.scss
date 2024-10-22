@@ -6,7 +6,6 @@
   width: 100%;
   min-width: 330px;
   justify-content: center;
-  padding: 0.5rem;
 }
 
 .App-logo {
@@ -22,7 +21,7 @@
 }
 
 .App-header {
-  min-width: 330px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,7 +31,7 @@
   /*background-color: rgb(4, 0, 255);*/
   background: transparent;
   width: 100vw;
-  min-height: 90px;
+  height: 100%;
   // background-color: #282c34;
   // padding: 1rem;
 }
@@ -52,14 +51,14 @@
 
 .MeteoWidget-section {
   width: 100vw;
-  //height: 100vh;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
   gap: 4rem;
   // box-sizing: border-box;
-  margin: 1rem;
+  margin: 5rem;
   // min-height: 480px;
   min-width: 330px;
 }

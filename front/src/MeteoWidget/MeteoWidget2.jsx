@@ -70,16 +70,16 @@ const MeteoWidget2 = () => {
             <p>{description}</p>
             <p>{Math.round(temperature)}°C</p>
           </div>
+          <form className="MeteoWidget-form" onSubmit={handleSubmit}>
+            <input
+              className="MeteoWidget-input"
+              type="text"
+              value={code}
+              onChange={handleChange}
+            />
+          </form>
         </div>
       </div>
-      <form className="MeteoWidget-form" onSubmit={handleSubmit}>
-        <input
-          className="MeteoWidget-input"
-          type="text"
-          value={code}
-          onChange={handleChange}
-        />
-      </form>
     </div>
   );
 };
