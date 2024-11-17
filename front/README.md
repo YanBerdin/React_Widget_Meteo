@@ -4,6 +4,17 @@
 
 🛠️ Technologies Utilisées : JS | React | Axios | Sass | PropTypes
 
+```bash
+/React_Widget_Meteo
+  ├── /node_modules
+  ├── /public
+  ├── /src
+  ├── .gitignore
+  ├── package.json
+  ├── package-lock.json
+  └── README.md
+```
+
 **🎙️ Description** :
 >L'application présente 2 'Widgets Meteo' qui affichent les informations météorologiques actuelles. l'un par saisie de code postal, l'autre par géolocalisation
 
