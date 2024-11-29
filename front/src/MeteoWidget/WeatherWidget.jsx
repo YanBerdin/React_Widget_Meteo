@@ -16,43 +16,63 @@ const WeatherWidget = () => {
 
   useEffect(() => {
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        const { longitude, latitude } = position.coords;
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const { longitude, latitude } = position.coords;
 
-        // console.log("lat et long", latitude, longitude); //TODO: remove
-        // console.log("Latitude:", position.coords.latitude); //TODO: remove
+          // console.log("lat et long", latitude, longitude); //TODO: remove
+          // console.log("Latitude:", position.coords.latitude); //TODO: remove
 
-        axios
-          .get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
-          )
+          axios
+            .get(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
+            )
 
-          .then((response) => {
-            // console.log("response", response); //TODO: remove
-            // console.log("response.data.coord", response.data.coord);
-            // console.log("weather widget response.data", response.data); //TODO: remove
-            // console.log("position.coords", position.coords); //TODO: remove
-            setCityName(response.data.name);
-            setTemperature(response.data.main.temp);
-            setIconUrl(
-              `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-            );
-            setDescription(response.data.weather[0].description);
-            setHumidity(response.data.main.humidity);
-            setClouds(response.data.clouds.all);
-            setTempMax(response.data.main.temp_max);
-            setTempMin(response.data.main.temp_min);
-          })
-          .catch((err) => {
-            // console.log("err", err); //TODO: remove
-            alert("Erreur API openweather !");
-            setError(err);
-            console.error(error);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      });
+            .then((response) => {
+              // console.log("response", response); //TODO: remove
+              // console.log("response.data.coord", response.data.coord);
+              // console.log("weather widget response.data", response.data); //TODO: remove
+              // console.log("position.coords", position.coords); //TODO: remove
+              setCityName(response.data.name);
+              setTemperature(response.data.main.temp);
+              setIconUrl(
+                `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+              );
+              setDescription(response.data.weather[0].description);
+              setHumidity(response.data.main.humidity);
+              setClouds(response.data.clouds.all);
+              setTempMax(response.data.main.temp_max);
+              setTempMin(response.data.main.temp_min);
+              setLoading(false);
+            })
+            .catch((err) => {
+              // console.log("err", err); //TODO: remove
+              alert("Erreur API openweather !");
+              setError(err);
+              console.error(error);
+              setLoading(false);
+            });
+        },
+        function (error) {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setError("L'utilisateur a refusé la demande de géolocalisation.");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setError("Les informations de localisation sont indisponibles.");
+              break;
+            case error.TIMEOUT:
+              setError("La demande de géolocalisation a expiré.");
+              break;
+            case error.UNKNOWN_ERROR:
+              setError("Une erreur inconnue s'est produite.");
+              break;
+            default:
+              setError("Erreur de géolocalisation.");
+          }
+          setLoading(false);
+        }
+      );
     } else {
       setError("La géolocalisation n'est pas supportée par ce navigateur.");
       setLoading(false);
@@ -80,6 +100,32 @@ const WeatherWidget = () => {
         <div className="loader">
           {" "}
           <p style={{ textAlign: "center" }}>Géolocalisation en attente</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        style={{
+          background: "linear-gradient(to bottom right, #63b3ed, #3182ce)",
+          padding: "1.5rem",
+          borderRadius: "1rem",
+          boxShadow: "0 10px 15px rgba(0, 0, 0, 0.1)",
+          maxWidth: "24rem",
+          width: "100%",
+          color: "white",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "16rem",
+        }}
+      >
+        <div className="loader">
+          {" "}
+          <p style={{ textAlign: "center" }}>Géolocalisation impossible</p>
+          <p style={{ textAlign: "center" }}>{error}</p>
         </div>
       </div>
     );

@@ -71,7 +71,7 @@ const MeteoWidget2 = () => {
           <form className="MeteoWidget-form" onSubmit={handleSubmit}>
             <input
               className="MeteoWidget-input"
-              type="text"
+              type="number"
               value={code}
               onChange={handleChange}
             />
