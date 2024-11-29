@@ -12,18 +12,9 @@ function App() {
         <h1>WidgetMeteo</h1>
 
         <img src={logo} className="App-logo" alt="logo" />
-
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
       </header>
       <section className="MeteoWidget-section">
-        <WeatherWidget cityName="Tahiti" code={98700}/>
+        <WeatherWidget cityName="Tahiti" code={98700} />
         {/*<MeteoWidget cityName="Chamonix-Mont-Blanc" code={74400}></MeteoWidget>*/}
         <MeteoWidget2 cityName="Paris" code={75005}></MeteoWidget2>
         {/*<MeteoWidget2 />*/}

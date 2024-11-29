@@ -1,7 +1,6 @@
-import { PropTypes } from "prop-types";
 import "./MeteoWidget.scss";
 import axios from "axios";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 
 const MeteoWidget2 = () => {
   const [temperature, setTemperature] = useState(null);
@@ -10,12 +9,7 @@ const MeteoWidget2 = () => {
   const [code, setCode] = useState("75005");
   const [cityName, setCityName] = useState("Paris 05");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    fetchMeteo(code);
-  };
-
-  const fetchMeteo = useCallback((code) => {
+  const fetchMeteo = (code) => {
     // Vérifier si le code est un nombre à 5 chiffres
     if (/^\d{5}$/.test(code)) {
       axios
@@ -45,17 +39,21 @@ const MeteoWidget2 = () => {
           alert("Erreur API openweather !");
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
   const handleChange = (event) => {
     setCode(event.target.value);
     fetchMeteo(code);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    fetchMeteo(code);
+  };
+
   useEffect(() => {
     fetchMeteo(code);
-  }, [code, fetchMeteo]);
+  }, [code]);
 
   return (
     <div className="MeteoWidget">
@@ -82,11 +80,6 @@ const MeteoWidget2 = () => {
       </div>
     </div>
   );
-};
-
-MeteoWidget2.propTypes = {
-  cityName: PropTypes.string.isRequired,
-  code: PropTypes.number.isRequired,
 };
 
 export default MeteoWidget2;
