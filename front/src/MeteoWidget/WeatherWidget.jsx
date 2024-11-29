@@ -1,54 +1,62 @@
 import { useState, useEffect } from "react";
 import { Cloud, Droplets, Thermometer, MapPin } from "lucide-react";
 import axios from "axios";
-import PropTypes from "prop-types";
 
 const WeatherWidget = () => {
   const [loading, setLoading] = useState(true);
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState("");
   const [description, setDescription] = useState(null);
-  const [cityName, setCityName] = useState(null);
+  const [cityName, setCityName] = useState("Tahiti");
   const [humidity, setHumidity] = useState(null);
   const [clouds, setClouds] = useState(null);
   const [tempMax, setTempMax] = useState(null);
   const [tempMin, setTempMin] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const { longitude, latitude } = position.coords;
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const { longitude, latitude } = position.coords;
 
-      // console.log("lat et long", latitude, longitude); //TODO: remove
-      // console.log("Latitude:", position.coords.latitude); //TODO: remove
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
-        )
+        // console.log("lat et long", latitude, longitude); //TODO: remove
+        // console.log("Latitude:", position.coords.latitude); //TODO: remove
 
-        .then((response) => {
-          // console.log("response", response); //TODO: remove
-          // console.log("response.data.coord", response.data.coord);
-          // console.log("weather widget response.data", response.data); //TODO: remove
-          // console.log("position.coords", position.coords); //TODO: remove
-          setCityName(response.data.name);
-          setTemperature(response.data.main.temp);
-          setIconUrl(
-            `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-          );
-          setDescription(response.data.weather[0].description);
-          setHumidity(response.data.main.humidity);
-          setClouds(response.data.clouds.all);
-          setTempMax(response.data.main.temp_max);
-          setTempMin(response.data.main.temp_min);
-        })
-        .catch((err) => {
-          // console.log("err", err); //TODO: remove
-          alert("Erreur API openweather !");
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    });
+        axios
+          .get(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=fr`
+          )
+
+          .then((response) => {
+            // console.log("response", response); //TODO: remove
+            // console.log("response.data.coord", response.data.coord);
+            // console.log("weather widget response.data", response.data); //TODO: remove
+            // console.log("position.coords", position.coords); //TODO: remove
+            setCityName(response.data.name);
+            setTemperature(response.data.main.temp);
+            setIconUrl(
+              `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+            );
+            setDescription(response.data.weather[0].description);
+            setHumidity(response.data.main.humidity);
+            setClouds(response.data.clouds.all);
+            setTempMax(response.data.main.temp_max);
+            setTempMin(response.data.main.temp_min);
+          })
+          .catch((err) => {
+            // console.log("err", err); //TODO: remove
+            alert("Erreur API openweather !");
+            setError(err);
+            console.error(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      });
+    } else {
+      setError("La géolocalisation n'est pas supportée par ce navigateur.");
+      setLoading(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -216,11 +224,6 @@ const WeatherWidget = () => {
       </div>
     </div>
   );
-};
-
-WeatherWidget.propTypes = {
-  cityName: PropTypes.string.isRequired,
-  code: PropTypes.number.isRequired,
 };
 
 export default WeatherWidget;

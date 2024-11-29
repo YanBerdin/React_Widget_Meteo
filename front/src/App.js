@@ -14,10 +14,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
       </header>
       <section className="MeteoWidget-section">
-        <WeatherWidget cityName="Tahiti" code={98700} />
+        <WeatherWidget />
         {/*<MeteoWidget cityName="Chamonix-Mont-Blanc" code={74400}></MeteoWidget>*/}
         <MeteoWidget2 cityName="Paris" code={75005}></MeteoWidget2>
-        {/*<MeteoWidget2 />*/}
         {/*<MeteoWidget3 cityName="Paris" code={75011} />*/}
       </section>
     </div>
