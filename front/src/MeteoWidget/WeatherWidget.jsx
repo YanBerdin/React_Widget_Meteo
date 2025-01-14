@@ -3,7 +3,7 @@ import { Cloud, Droplets, Thermometer, MapPin } from "lucide-react";
 import axios from "axios";
 
 const WeatherWidget = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [temperature, setTemperature] = useState(null);
   const [iconUrl, setIconUrl] = useState("");
   const [description, setDescription] = useState(null);
@@ -14,10 +14,11 @@ const WeatherWidget = () => {
   const [tempMin, setTempMin] = useState(null);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const handleGeolocation = () => {
+    setLoading(true);
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
-        function (position) {
+        (position) => {
           const { longitude, latitude } = position.coords;
 
           // console.log("lat et long", latitude, longitude); //TODO: remove
@@ -53,7 +54,7 @@ const WeatherWidget = () => {
               setLoading(false);
             });
         },
-        function (error) {
+        (error) => {
           switch (error.code) {
             case error.PERMISSION_DENIED:
               setError("L'utilisateur a refusé la demande de géolocalisation.");
@@ -71,12 +72,17 @@ const WeatherWidget = () => {
               setError("Erreur de géolocalisation.");
           }
           setLoading(false);
-        }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
       );
     } else {
       setError("La géolocalisation n'est pas supportée par ce navigateur.");
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    handleGeolocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

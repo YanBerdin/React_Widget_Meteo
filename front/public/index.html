@@ -2,13 +2,43 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-   
     <meta
       name="description"
-      content="Weather Widget using create-react-app"
+      content="Widget météo développé avec React. Consultez les prévisions météo en temps réel."
     />
+    <meta name="author" content="Yan Berdin" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- SEO & Social Media -->
+    <meta
+      property="og:title"
+      content="WidgetMeteo - Prévisions météo en direct"
+    />
+    <meta
+      property="og:description"
+      content="Widget météo développé avec React. Consultez les prévisions météo en temps réel."
+    />
+    <meta property="og:image" content="%PUBLIC_URL%/logo192.png" />
+    <meta
+      property="og:url"
+      content="https://yanberdin.github.io/React_Widget_Meteo/"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Sécurité -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <!-- X-Frame-Options may only be set via an HTTP header. It may not be set inside <meta>. -->
+    <!-- <meta http-equiv="X-Frame-Options" content="DENY" />  -->
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' https: data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openweathermap.org;"
+    />
+    <!-- Performances -->
+    <link rel="preload" href="%PUBLIC_URL%/logo192.png" as="image" />
+
+    <!-- Favicons -->
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -24,10 +54,14 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- Titre -->
+    <title>Widget Meteo - Prévisions en direct</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript
+      >Vous devez activer JavaScript pour afficher cette application.</noscript
+    >
     <div id="root"></div>
     <!--
       This HTML file is a template.
